@@ -42,8 +42,7 @@ const EditPostBody = () => {
       <div>
       <Button
           variant="contained"
-          sx={{ bgcolor: "#2196F3" }}
-         
+          sx={{ bgcolor: "#2196F3" }}      
         >
             Edit
         </Button>
