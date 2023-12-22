@@ -3,23 +3,11 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useCreatePostMutation } from '../../../features/posts/postApi';
 
-const CreatePostBody = () => {
-    const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
 
-  const [createPost, { isLoading }] = useCreatePostMutation();
 
-  const handleCreatePost = async () => {
-    try {
-      await createPost({ title, body: description });
-      setTitle('');
-      setDescription('');
-    } catch (error) {
-      console.error('Error creating post:', error);
-    }
-  };
+const EditPostBody = () => {
+  
     return (
     <Box
       sx={{
@@ -30,7 +18,7 @@ const CreatePostBody = () => {
       }}
     >
       <div>
-        <Typography variant="h4" fontWeight="bold" marginTop="20px" marginBottom="20px">Create Your Post Here</Typography>
+        <Typography variant="h4" fontWeight="bold" marginTop="20px" marginBottom="20px">Edit Your Post Here</Typography>
       </div>
 
       <div>
@@ -55,14 +43,13 @@ const CreatePostBody = () => {
       <Button
           variant="contained"
           sx={{ bgcolor: "#2196F3" }}
-          onClick={handleCreatePost}
-          disabled={isLoading}
+         
         >
-          {isLoading ? 'Creating...' : 'Create Post'}
+            Edit
         </Button>
       </div>
     </Box>
   );
 };
 
-export default CreatePostBody;
+export default EditPostBody;

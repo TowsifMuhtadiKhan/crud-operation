@@ -36,10 +36,14 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  const handleCreatePostClick = () => {
-  //   // Navigate to the "Create Post" page
-  navigate('/user/create_post');
- handleCloseNavMenu(); // Close the menu after navigation
+  const handleCreatePostClick = (menuItemLabel: string) => {
+    if (menuItemLabel === 'Create Post') {
+      // Navigate to the "Create Post" page
+      navigate('/user/create_post');
+      handleCloseNavMenu(); 
+    } else {
+   
+    }
   };
 
   return (
@@ -156,9 +160,9 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCreatePostClick} >
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+                <MenuItem key={setting} onClick={() => handleCreatePostClick(setting)}>
+                <Typography textAlign="center">{setting}</Typography>
+              </MenuItem>
               ))}
             </Menu>
           </Box>

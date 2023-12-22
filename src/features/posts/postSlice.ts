@@ -1,3 +1,5 @@
+// postSlice.ts
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 
@@ -15,6 +17,7 @@ const postSlice = createSlice({
     builder.addCase(fetchPosts.fulfilled, (state, action) => {
       state.posts = action.payload;
     });
+    // Add more cases if needed for other asynchronous actions
   },
 });
 

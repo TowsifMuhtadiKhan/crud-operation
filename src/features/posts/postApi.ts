@@ -1,3 +1,5 @@
+// postApi.ts
+
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const postApi = createApi({
@@ -6,9 +8,16 @@ export const postApi = createApi({
   endpoints: (builder) => ({
     getPosts: builder.query<any[], void>({
       query: () => 'posts',
- 
+    }),
+    createPost: builder.mutation<void, { title: string; body: string }>({
+      query: ({ title, body }) => ({
+        url: 'posts',
+        method: 'POST',
+        body: { title, body },
+       
+      }),
     }),
   }),
 });
 
-export const { useGetPostsQuery } = postApi;
+export const { useGetPostsQuery, useCreatePostMutation } = postApi;

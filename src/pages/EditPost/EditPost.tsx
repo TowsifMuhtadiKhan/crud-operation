@@ -1,18 +1,19 @@
 import React from 'react';
 import ResponsiveAppBar from '../Navbar/Appbar';
-import CreatePostBody from './CreatePostBody/CreatePostBody';
+import EditPostBody from './EditPostBody/EditPostBody';
 import Footer from '../Footer/Footer';
+import { useLocation } from 'react-router-dom';
 
 
 
-function CreatePost() {
+function EditPost() {
   return (
     <>
    <ResponsiveAppBar/>
-   <CreatePostBody/>
-    <Footer/>
+
+   <Footer/>
     </>
   );
 }
 
-export default CreatePost;
+export default EditPost;
