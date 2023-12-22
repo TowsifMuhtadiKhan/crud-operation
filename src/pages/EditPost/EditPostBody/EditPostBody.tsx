@@ -5,9 +5,15 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 
+interface EditPostBodyProps {
+    id: number;
+    title: string;
+    body: string;
+  }
 
-const EditPostBody = () => {
-  
+
+  const EditPostBody: React.FC<EditPostBodyProps> = ({ id, title, body }) => {
+    
     return (
     <Box
       sx={{
@@ -23,7 +29,7 @@ const EditPostBody = () => {
 
       <div>
         <Typography variant="h6">Title</Typography>
-        <TextField fullWidth id="title" label="Enter title" variant="outlined" margin="normal" />
+        <TextField fullWidth id="title" variant="outlined" margin="normal" defaultValue={title}/>
       </div>
 
       <div>
@@ -33,9 +39,10 @@ const EditPostBody = () => {
           multiline
           rows={5}
           id="description"
-          label="Enter description"
+          
           variant="outlined"
           margin="normal"
+          defaultValue={body}
         />
       </div>
 

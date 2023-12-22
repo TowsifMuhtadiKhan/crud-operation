@@ -7,6 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useGetPostsQuery } from '../../../features/posts/postApi';
+import { useDeletePostMutation } from '../../../features/posts/postApi';
 import { useNavigate } from 'react-router-dom';
 
 interface BlogPost {
@@ -24,12 +25,15 @@ const truncateText = (text: string, maxWords: number): string => {
 };
 
 const ImgMediaCard = () => {
+  const navigate = useNavigate();
   const { data: posts, error, isLoading } = useGetPostsQuery();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [expandedCards, setExpandedCards] = useState<number[]>([]);
   const maxContentHeight = 80;
 
+  const deletePostMutation = useDeletePostMutation();
+  const [deletePost] = deletePostMutation;
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -46,6 +50,15 @@ const ImgMediaCard = () => {
     );
   };
 
+  const handleDeletePost = async (postId: number) => {
+    try {
+      await deletePost(postId).unwrap();
+
+    } catch (error) {
+      console.error('Error deleting post:', error);
+    }
+  };
+
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
@@ -59,8 +72,12 @@ const ImgMediaCard = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  
-
+ 
+  const handleEditPost = (postId: number, postTitle: string, postBody: string) => {
+    // Navigate to the PostEdit component with the post id and data
+    navigate(`/user/${postId}/edit_post`, { state: { title: postTitle, body: postBody } });
+  };
+ 
   const indexOfLastPost = (page + 1) * rowsPerPage;
   const indexOfFirstPost = indexOfLastPost - rowsPerPage;
   const currentPosts = posts?.slice(indexOfFirstPost, indexOfLastPost);
@@ -93,8 +110,12 @@ const ImgMediaCard = () => {
             </CardActions>
           )}
           <CardActions>
-            <Button size="small">Edit</Button>
-            <Button size="small">Delete</Button>
+          <Button size="small" onClick={() => handleEditPost(post.id, post.title, post.body)}>
+              Edit
+            </Button>
+            <Button size="small" onClick={() => handleDeletePost(post.id)}>
+              Delete
+            </Button>
           </CardActions>
         </Card>
       ))}

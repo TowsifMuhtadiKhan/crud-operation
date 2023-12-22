@@ -1,5 +1,3 @@
-// postApi.ts
-
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const postApi = createApi({
@@ -14,10 +12,15 @@ export const postApi = createApi({
         url: 'posts',
         method: 'POST',
         body: { title, body },
-       
+      }),
+    }),
+    deletePost: builder.mutation<void, number>({
+      query: (postId) => ({
+        url: `posts/${postId}`,
+        method: 'DELETE',
       }),
     }),
   }),
 });
 
-export const { useGetPostsQuery, useCreatePostMutation } = postApi;
+export const { useGetPostsQuery, useCreatePostMutation, useDeletePostMutation } = postApi;
